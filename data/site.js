@@ -23,7 +23,7 @@ const site = {
   ],
   quote: "The masks are worn to protest the toxicity of popular culture.",
   quoteBy: "Chuck Haven",
-  bandPhoto: "/images/band.jpg", // upload your photo to public/images/band.jpg
+  bandPhoto: "/images/band.jpeg", // upload your photo to public/images/band.jpeg
   bandPhotoAlt: "Signal 99 on stage",
 
   // ---------- Music links ----------
