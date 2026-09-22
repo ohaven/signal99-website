@@ -31,12 +31,15 @@ export function getStaticProps() {
   const upcoming = tourDates
     .filter((s) => parseDate(s.date) >= today)
     .sort((a, b) => parseDate(a.date) - parseDate(b.date));
+  const past = tourDates
+    .filter((s) => parseDate(s.date) < today)
+    .sort((a, b) => parseDate(b.date) - parseDate(a.date)); // newest first
   // Only show the band photo if the file has actually been uploaded
   const hasPhoto = !!site.bandPhoto && fs.existsSync(path.join(process.cwd(), "public", site.bandPhoto));
-  return { props: { shows: upcoming, hasPhoto }, revalidate: 3600 }; // re-check once an hour
+  return { props: { shows: upcoming, past, hasPhoto }, revalidate: 3600 }; // re-check once an hour
 }
 
-export default function Home({ shows, hasPhoto }) {
+export default function Home({ shows, past, hasPhoto }) {
   const next = shows[0];
   const year = new Date().getFullYear();
 
@@ -63,6 +66,7 @@ export default function Home({ shows, hasPhoto }) {
             <a href="#music">Music</a>
             <a href="#dates">Shows</a>
             <a href="#merch">Merch</a>
+            <a href="#tools">Tools</a>
             <a href="#contact">Contact</a>
           </nav>
         </div>
@@ -102,6 +106,12 @@ export default function Home({ shows, hasPhoto }) {
           <div className="about">
             <div>
               {site.about.map((p, i) => <p key={i}>{p}</p>)}
+              {site.quote && (
+                <blockquote className="quote">
+                  “{site.quote}”
+                  {site.quoteBy && <cite>{site.quoteBy}</cite>}
+                </blockquote>
+              )}
             </div>
             <div className="about-photo">
               {hasPhoto ? (
@@ -123,6 +133,18 @@ export default function Home({ shows, hasPhoto }) {
               </a>
             ))}
           </div>
+          {site.releases && site.releases.length > 0 && (
+            <ul className="releases">
+              {site.releases.map((r) => (
+                <li key={r.title}>
+                  <a href={r.url} target="_blank" rel="noopener noreferrer">
+                    <strong>{r.title}</strong>
+                    {r.year && <span>{r.year}</span>}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
           {site.featuredVideoId && (
             <div className="video">
               <iframe
@@ -155,8 +177,9 @@ export default function Home({ shows, hasPhoto }) {
                     </div>
                     <div className="where">
                       <strong>{s.venue}</strong>
-                      <span>{s.city}</span>
+                      <span>{s.city}{s.address ? ` · ${s.address}` : ""}</span>
                       {s.note && <em>{s.note}</em>}
+                      {s.flyer && <img className="flyer" src={s.flyer} alt={`${s.venue} flyer`} loading="lazy" />}
                     </div>
                     <div className="tix">
                       {isLink(s.ticketUrl) ? (
@@ -169,6 +192,22 @@ export default function Home({ shows, hasPhoto }) {
                 );
               })}
             </ul>
+          )}
+          {past && past.length > 0 && (
+            <details className="past">
+              <summary>Past shows ({past.length})</summary>
+              <ul>
+                {past.map((s) => {
+                  const d = parseDate(s.date);
+                  return (
+                    <li key={`${s.date}-${s.venue}-${s.city}`}>
+                      <span className="pd">{MONTHS[d.getMonth()]} {d.getDate()}, {d.getFullYear()}</span>
+                      <span className="pv">{[s.venue, s.city].filter(Boolean).join(", ")}{s.note ? ` — ${s.note}` : ""}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </details>
           )}
         </section>
 
@@ -190,9 +229,30 @@ export default function Home({ shows, hasPhoto }) {
           {isLink(site.merchStoreUrl) && (
             <p className="merch-all">
               <a href={site.merchStoreUrl} target="_blank" rel="noopener noreferrer">See everything in the store</a>
+              {isLink(site.tipJarUrl) && (
+                <>
+                  {" · "}
+                  <a href={site.tipJarUrl} target="_blank" rel="noopener noreferrer">Tip jar</a>
+                </>
+              )}
             </p>
           )}
         </section>
+
+        {site.tools && site.tools.some((t) => isLink(t.url)) && (
+          <section className="section" id="tools">
+            <h2>Tools</h2>
+            <p className="tools-intro">Free tools we built for working bands.</p>
+            <div className="tools">
+              {site.tools.filter((t) => isLink(t.url)).map((t) => (
+                <a key={t.name} href={t.url} target="_blank" rel="noopener noreferrer">
+                  <strong>{t.name}</strong>
+                  {t.blurb && <span>{t.blurb}</span>}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="section" id="contact">
           <h2>Stay in the loop</h2>

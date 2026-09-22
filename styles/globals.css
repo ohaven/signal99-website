@@ -144,6 +144,10 @@ img { max-width: 100%; display: block; }
 .about-photo .placeholder { height: 100%; display: grid; place-items: center; color: var(--dim); text-align: center; padding: 1rem; font-size: .9rem; }
 @media (max-width: 760px) { .about { grid-template-columns: 1fr; } }
 
+/* Quote */
+.quote { margin-top: 1.5rem; padding-left: 1rem; border-left: 2px solid var(--rust); color: var(--paper); max-width: 52ch; }
+.quote cite { display: block; margin-top: .4rem; color: var(--dim); font-style: normal; font-size: .9rem; }
+
 /* Music */
 .music { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; }
 .music a {
@@ -154,6 +158,10 @@ img { max-width: 100%; display: block; }
 .music a:hover, .music a:focus-visible { border-color: var(--rust); text-decoration: none; }
 .music a strong { font-weight: 700; }
 .music a span { color: var(--rust); font-size: .9rem; }
+.releases { list-style: none; margin-top: 1.5rem; border-top: 1px solid var(--line); }
+.releases a { display: flex; justify-content: space-between; gap: 1rem; padding: .75rem 0; border-bottom: 1px solid var(--line); color: var(--paper); text-decoration: none; }
+.releases a:hover, .releases a:focus-visible { color: var(--rust); text-decoration: none; }
+.releases span { color: var(--dim); }
 .video { margin-top: 2rem; aspect-ratio: 16/9; border: 1px solid var(--line); background: #000; }
 .video iframe { width: 100%; height: 100%; border: 0; }
 
@@ -171,6 +179,14 @@ img { max-width: 100%; display: block; }
 .dates .tix { white-space: nowrap; }
 .dates .tix .btn { padding: .55rem 1rem; font-size: .9rem; }
 .dates .tix .soon { color: var(--dim); font-size: .9rem; }
+.dates .flyer { margin-top: .75rem; max-width: 260px; border: 1px solid var(--line); }
+.past { margin-top: 2rem; }
+.past summary { cursor: pointer; color: var(--dim); padding: .5rem 0; }
+.past summary:hover { color: var(--rust); }
+.past ul { list-style: none; margin-top: .5rem; }
+.past li { display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; padding: .45rem 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+.past .pd { color: var(--dim); white-space: nowrap; }
+@media (max-width: 600px) { .past li { grid-template-columns: 1fr; gap: .1rem; } }
 .empty { color: var(--dim); border: 1px dashed var(--line); padding: 2rem; text-align: center; }
 .empty a { display: inline-block; margin-top: .5rem; }
 @media (max-width: 600px) {
@@ -187,6 +203,14 @@ img { max-width: 100%; display: block; }
 .merch .meta { display: flex; justify-content: space-between; padding: .85rem 1rem; }
 .merch .meta span { color: var(--rust); }
 .merch-all { margin-top: 1.5rem; }
+
+/* Tools */
+.tools-intro { color: var(--dim); margin-bottom: 1.25rem; }
+.tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.tools a { display: block; background: var(--panel); border: 1px solid var(--line); padding: 1.15rem 1.25rem; color: var(--paper); text-decoration: none; transition: border-color .15s; }
+.tools a:hover, .tools a:focus-visible { border-color: var(--rust); text-decoration: none; }
+.tools a strong { display: block; }
+.tools a span { color: var(--dim); font-size: .95rem; }
 
 /* Newsletter */
 .signup { background: var(--panel); border-left: 4px solid var(--rust); padding: 2rem; max-width: 620px; }
