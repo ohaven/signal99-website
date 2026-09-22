@@ -52,8 +52,22 @@ const site = {
     { title: "American Monster", year: "2017", url: "https://signal99.bandcamp.com" },
   ],
 
-  // YouTube video ID for the featured video (the part after "v=" in the link).
-  featuredVideoId: "mnehegQdNOc",
+  // ---------- Bandcamp player (shown in the Music section) ----------
+  // From Bandcamp: album page → Share/Embed → copy the number after "album=" in the code.
+  bandcampPlayer: {
+    albumId: "2738116665",
+    albumUrl: "https://signal99.bandcamp.com/album/armed-and-dangerous",
+    albumTitle: "Armed and Dangerous",
+  },
+
+  // ---------- Videos (rotating video wall) ----------
+  // id = the part after "v=" in a YouTube link. First one plays first.
+  // The wall rotates through them on its own until someone clicks play.
+  videos: [
+    { id: "mnehegQdNOc", title: "" },
+    { id: "Exp6GcE3XQA", title: "" },
+    { id: "C5CyP1lfO-M", title: "" },
+  ],
 
   // ---------- Merch ----------
   // Everything links to Bandcamp. Once your Bandcamp merch is up, you can
@@ -97,6 +111,7 @@ const site = {
 
   // ---------- Booking / contact ----------
   bookingEmail: "signal99haven@gmail.com",
+  pressKitPath: "/epk", // the press kit page; set "" to hide the link
 };
 
 export default site;

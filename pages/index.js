@@ -10,6 +10,7 @@ import fs from "fs";
 import path from "path";
 import site from "../data/site";
 import tourDates from "../data/tour-dates";
+import VideoWall from "../components/VideoWall";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -171,16 +172,23 @@ export default function Home({ shows, past, hasPhoto }) {
               ))}
             </ul>
           )}
-          {site.featuredVideoId && (
-            <div className="video">
+          {site.bandcampPlayer?.albumId && (
+            <div className="bc-player">
               <iframe
-                src={`https://www.youtube-nocookie.com/embed/${site.featuredVideoId}`}
-                title={`${site.bandName} video`}
+                title={`${site.bandcampPlayer.albumTitle || "Signal 99"} on Bandcamp`}
+                src={`https://bandcamp.com/EmbeddedPlayer/album=${site.bandcampPlayer.albumId}/size=large/bgcol=141414/linkcol=ff6b35/tracklist=false/artwork=small/transparent=true/`}
+                seamless
                 loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              >
+                <a href={site.bandcampPlayer.albumUrl}>{site.bandcampPlayer.albumTitle} by {site.bandName}</a>
+              </iframe>
             </div>
+          )}
+          {site.videos && site.videos.length > 0 && (
+            <>
+              <h3 className="sub">Videos</h3>
+              <VideoWall videos={site.videos} />
+            </>
           )}
         </section>
 
@@ -203,7 +211,15 @@ export default function Home({ shows, past, hasPhoto }) {
                     </div>
                     <div className="where">
                       <strong>{s.venue}</strong>
-                      <span>{s.city}{s.address ? ` · ${s.address}` : ""}</span>
+                      <span>
+                        {s.city}
+                        {s.address && (
+                          <>
+                            {" · "}
+                            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${s.venue} ${s.address} ${s.city}`)}`} target="_blank" rel="noopener noreferrer">{s.address}</a>
+                          </>
+                        )}
+                      </span>
                       {s.note && <em>{s.note}</em>}
                       {s.flyer && <img className="flyer" src={s.flyer} alt={`${s.venue} flyer`} loading="lazy" />}
                     </div>
@@ -332,6 +348,7 @@ export default function Home({ shows, past, hasPhoto }) {
           {site.bookingEmail && (
             <p className="booking">
               Booking &amp; press: <a href={`mailto:${site.bookingEmail}`}>{site.bookingEmail}</a>
+              {site.pressKitPath && <>{" · "}<a href={site.pressKitPath}>Press kit</a></>}
             </p>
           )}
         </section>
