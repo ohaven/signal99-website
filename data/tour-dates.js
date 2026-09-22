@@ -27,7 +27,7 @@ const tourDates = [
     address: "117 S Camino Del Rio",
     ticketUrl: "",
     note: "Headlining, with Green Lizard and Fables of the Fall · $10 · All ages · Doors 6:30pm",
-    flyer: "flyer-durango-2026.jpeg",
+    flyer: "flyer-durango-2026.jpg",
   },
 
   // ---------- PAST ----------
