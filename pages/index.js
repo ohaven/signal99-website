@@ -288,14 +288,30 @@ export default function Home({ shows, past, hasPhoto }) {
           <div className="signup">
             <p>New shows, new music, and merch drops — straight to your inbox. No spam.</p>
             {site.mailchimpFormAction ? (
-              <form action={site.mailchimpFormAction} method="post" target="_blank" noValidate>
-                <label htmlFor="mce-EMAIL">Email address</label>
-                <input type="email" name="EMAIL" id="mce-EMAIL" placeholder="your@email.com" required />
+              <form action={site.mailchimpFormAction} method="post" target="_blank" noValidate className="mc-form">
+                <div className="field wide">
+                  <label htmlFor="mce-EMAIL">Email address *</label>
+                  <input type="email" name="EMAIL" id="mce-EMAIL" placeholder="your@email.com" required autoComplete="email" />
+                </div>
+                <div className="field">
+                  <label htmlFor="mce-FNAME">First name</label>
+                  <input type="text" name="FNAME" id="mce-FNAME" placeholder="First name" autoComplete="given-name" />
+                </div>
+                <div className="field">
+                  <label htmlFor="mce-LNAME">Last name</label>
+                  <input type="text" name="LNAME" id="mce-LNAME" placeholder="Last name" autoComplete="family-name" />
+                </div>
+                <div className="field">
+                  <label htmlFor="mce-MMERGE7">Zip code</label>
+                  <input type="text" name="MMERGE7" id="mce-MMERGE7" placeholder="Zip code" inputMode="numeric" autoComplete="postal-code" />
+                </div>
                 {/* MailChimp's anti-bot honeypot field — leave as is */}
                 <div style={{ position: "absolute", left: "-5000px" }} aria-hidden="true">
                   <input type="text" name={mailchimpHoneypot(site.mailchimpFormAction)} tabIndex="-1" defaultValue="" />
                 </div>
-                <button className="btn btn-solid" type="submit">Subscribe</button>
+                <div className="field submit">
+                  <button className="btn btn-solid" type="submit">Subscribe</button>
+                </div>
               </form>
             ) : (
               <form onSubmit={(e) => e.preventDefault()}>
@@ -304,7 +320,7 @@ export default function Home({ shows, past, hasPhoto }) {
                 <button className="btn btn-solid" type="submit" disabled title="MailChimp not connected yet">Subscribe</button>
               </form>
             )}
-            <p className="fine">Unsubscribe any time.</p>
+            <p className="fine">Zip code helps us route the tour to you. Unsubscribe any time.</p>
           </div>
 
           <div className="social" aria-label="Social media">

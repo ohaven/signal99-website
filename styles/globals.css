@@ -226,14 +226,19 @@ img { max-width: 100%; display: block; }
 .signup { background: var(--panel); border-left: 4px solid var(--rust); padding: 2rem; max-width: 620px; }
 .signup p { margin-bottom: 1.25rem; }
 .signup form { display: flex; gap: .75rem; flex-wrap: wrap; }
-.signup label { position: absolute; left: -999px; }
+.signup .mc-form { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.signup .field { display: flex; flex-direction: column; gap: .3rem; }
+.signup .field.wide, .signup .field.submit { grid-column: 1 / -1; }
+.signup .field.submit { margin-top: .25rem; }
+.signup label { font-size: .85rem; color: var(--dim); }
 .signup input {
-  flex: 1 1 240px; padding: .8rem 1rem;
+  width: 100%; padding: .8rem 1rem;
   background: var(--raised); border: 1px solid #3a3a3a; color: var(--paper);
   font-family: var(--body); font-size: 1rem;
 }
 .signup input::placeholder { color: var(--dim); }
 .signup input:focus { outline: none; border-color: var(--rust); }
+@media (max-width: 480px) { .signup .mc-form { grid-template-columns: 1fr; } }
 .signup .fine { font-size: .85rem; color: var(--dim); margin: .75rem 0 0; }
 
 /* Contact watermark */
