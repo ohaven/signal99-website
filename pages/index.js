@@ -20,6 +20,16 @@ function parseDate(str) {
   return new Date(y, m - 1, d);
 }
 
+// MailChimp's anti-bot field is named b_<u>_<id>, both taken from the form address
+function mailchimpHoneypot(action) {
+  try {
+    const q = new URL(action).searchParams;
+    return `b_${q.get("u") || ""}_${q.get("id") || ""}`;
+  } catch {
+    return "b_";
+  }
+}
+
 function isLink(url) {
   return typeof url === "string" && url.length > 1 && url !== "#";
 }
@@ -283,7 +293,7 @@ export default function Home({ shows, past, hasPhoto }) {
                 <input type="email" name="EMAIL" id="mce-EMAIL" placeholder="your@email.com" required />
                 {/* MailChimp's anti-bot honeypot field — leave as is */}
                 <div style={{ position: "absolute", left: "-5000px" }} aria-hidden="true">
-                  <input type="text" name="b_placeholder" tabIndex="-1" defaultValue="" />
+                  <input type="text" name={mailchimpHoneypot(site.mailchimpFormAction)} tabIndex="-1" defaultValue="" />
                 </div>
                 <button className="btn btn-solid" type="submit">Subscribe</button>
               </form>

@@ -84,7 +84,8 @@ const site = {
   // Find the line that starts with:
   //   <form action="https://....list-manage.com/subscribe/post?u=...&id=..."
   // Copy ONLY the web address inside the quotes and paste it below.
-  mailchimpFormAction: "",
+  mailchimpFormAction:
+    "https://facebook.us12.list-manage.com/subscribe/post?u=6d498b37e931acf0609bcde3d&id=9650f09d77&f_id=00dcdfe8f0",
 
   // ---------- Social links ----------
   social: [
