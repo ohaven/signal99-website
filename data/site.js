@@ -14,6 +14,15 @@ const site = {
   description:
     "Signal 99 — hard rock and metal punk out of Farmington, New Mexico. Shows, music, merch, and mailing list.",
 
+  // ---------- Branding images (in public/images/) ----------
+  // Set any of these to "" to fall back to plain text / no image.
+  branding: {
+    banner: "/images/banner.png",       // wordmark: hero and header
+    heroArt: "/images/gasmask.jpg",     // artwork beside the banner in the hero
+    watermark: "/images/watermark.png", // faint spray logo behind the Contact section
+    shareImage: "/images/og.jpg",       // preview image when the link is shared
+  },
+
   // ---------- About section ----------
   // Each line in quotes is one paragraph.
   about: [
@@ -23,7 +32,7 @@ const site = {
   ],
   quote: "The masks are worn to protest the toxicity of popular culture.",
   quoteBy: "Chuck Haven",
-  bandPhoto: "/images/band.jpeg", // upload your photo to public/images/band.jpeg
+  bandPhoto: "/images/band.jpeg", // upload your photo to public/images/band.jpg
   bandPhotoAlt: "Signal 99 on stage",
 
   // ---------- Music links ----------

@@ -52,7 +52,8 @@ export default function Home({ shows, past, hasPhoto }) {
         <meta property="og:description" content={site.description} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={site.siteUrl} />
-        <meta property="og:image" content={`${site.siteUrl}/images/og.jpg`} />
+        <meta property="og:image" content={`${site.siteUrl}${site.branding?.shareImage || "/images/og.jpg"}`} />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -60,7 +61,11 @@ export default function Home({ shows, past, hasPhoto }) {
 
       <header className="header">
         <div className="header-inner">
-          <a className="logo" href="#top">{site.bandName.toUpperCase()}</a>
+          <a className="logo" href="#top" aria-label={`${site.bandName} home`}>
+            {site.branding?.banner
+              ? <img src={site.branding.banner} alt={site.bandName} className="logo-img" />
+              : site.bandName.toUpperCase()}
+          </a>
           <nav className="nav" aria-label="Main">
             <a href="#about">About</a>
             <a href="#music">Music</a>
@@ -74,16 +79,27 @@ export default function Home({ shows, past, hasPhoto }) {
 
       <main id="main">
         <section className="hero" id="top">
-          <div className="hero-inner">
-            <h1 className="hero-mark">{site.bandName}</h1>
-            <p className="hero-tag">
-              {site.tagline}
-              <span>{site.subTagline}</span>
-            </p>
-            <div className="hero-actions">
-              <a className="btn btn-solid" href="#music">Listen</a>
-              <a className="btn" href="#dates">See shows</a>
+          <div className={`hero-inner${site.branding?.heroArt ? " has-art" : ""}`}>
+            <div className="hero-copy">
+              <h1 className="hero-mark">
+                {site.branding?.banner
+                  ? <img src={site.branding.banner} alt={site.bandName} className="hero-banner" />
+                  : site.bandName}
+              </h1>
+              <p className="hero-tag">
+                {site.tagline}
+                <span>{site.subTagline}</span>
+              </p>
+              <div className="hero-actions">
+                <a className="btn btn-solid" href="#music">Listen</a>
+                <a className="btn" href="#dates">See shows</a>
+              </div>
             </div>
+            {site.branding?.heroArt && (
+              <div className="hero-art">
+                <img src={site.branding.heroArt} alt="" />
+              </div>
+            )}
           </div>
         </section>
 
@@ -254,7 +270,10 @@ export default function Home({ shows, past, hasPhoto }) {
           </section>
         )}
 
-        <section className="section" id="contact">
+        <section className="section contact" id="contact">
+          {site.branding?.watermark && (
+            <img className="watermark" src={site.branding.watermark} alt="" aria-hidden="true" />
+          )}
           <h2>Stay in the loop</h2>
           <div className="signup">
             <p>New shows, new music, and merch drops — straight to your inbox. No spam.</p>
