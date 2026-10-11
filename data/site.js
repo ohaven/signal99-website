@@ -69,18 +69,29 @@ const site = {
     { id: "C5CyP1lfO-M", title: "" },
   ],
 
-  // ---------- Merch ----------
-  // Everything links to Bandcamp. Once your Bandcamp merch is up, you can
-  // point each item at its own page and add a photo (upload to public/images/).
-  merchStoreUrl: "https://signal99.bandcamp.com/merch",
+  // ---------- Merch (sold through Square) ----------
+  // In Square: Online → Payment Links → create one per item, copy the link
+  // (looks like https://square.link/u/XXXXXXXX) and paste it as the url.
+  // image: upload a product photo to public/images/ and put the path here.
+  // sizes is just display text; the real size picker is inside Square.
   merch: [
-    { name: "Classic Logo T-Shirt", price: "$20", url: "https://signal99.bandcamp.com/merch", image: "" },
-    { name: "Classic Logo Pullover", price: "$40", url: "https://signal99.bandcamp.com/merch", image: "" },
-    { name: "Teddy Bear Shirt", price: "$20", url: "https://signal99.bandcamp.com/merch", image: "" },
-    { name: "Banner of Corpses Shirt", price: "$20", url: "https://signal99.bandcamp.com/merch", image: "" },
-    { name: "Zombie Star Shirt", price: "$20", url: "https://signal99.bandcamp.com/merch", image: "" },
-    { name: "Sticker Pack", price: "$10", url: "https://signal99.bandcamp.com/merch", image: "" },
+    {
+      name: "Classic Logo T-Shirt",
+      price: "$20",
+      sizes: "S – 2XL",
+      url: "https://square.link/u/JJGyDmxD",
+      image: "/images/merch-tshirt.jpg",
+    },
+    {
+      name: "Classic Logo Pullover",
+      price: "$40",
+      sizes: "S – 2XL",
+      url: "https://square.link/u/z5iefwZ0",
+      image: "/images/merch-pullover.jpg",
+    },
   ],
+  merchNote: "Shipped from Farmington, NM. Grab them at a show and skip the shipping.",
+  merchStoreUrl: "", // optional "See everything" link (e.g. a Square Online store). "" hides it.
 
   // Optional tip jar (PayPal). Leave "" to hide.
   tipJarUrl:

@@ -256,29 +256,36 @@ export default function Home({ shows, past, hasPhoto }) {
         <section className="section" id="merch">
           <h2>Merch</h2>
           <div className="merch">
-            {site.merch.map((item) => (
-              <a key={item.name} href={item.url} target="_blank" rel="noopener noreferrer">
-                <div className="thumb">
-                  {item.image ? <img src={item.image} alt={item.name} /> : item.name}
-                </div>
-                <div className="meta">
-                  <strong>{item.name}</strong>
-                  <span>{item.price}</span>
-                </div>
-              </a>
-            ))}
+            {site.merch.map((item) => {
+              const live = isLink(item.url) && !item.url.startsWith("PASTE");
+              const Card = live ? "a" : "div";
+              const props = live ? { href: item.url, target: "_blank", rel: "noopener noreferrer" } : { className: "soon" };
+              return (
+                <Card key={item.name} {...props}>
+                  <div className="thumb">
+                    {item.image ? <img src={item.image} alt={item.name} onError={(e) => { e.currentTarget.style.display = "none"; }} /> : item.name}
+                  </div>
+                  <div className="meta">
+                    <div>
+                      <strong>{item.name}</strong>
+                      {item.sizes && <small>{item.sizes}</small>}
+                    </div>
+                    <span>{live ? item.price : "Coming soon"}</span>
+                  </div>
+                </Card>
+              );
+            })}
           </div>
-          {isLink(site.merchStoreUrl) && (
-            <p className="merch-all">
+          {site.merchNote && <p className="merch-note">{site.merchNote}</p>}
+          <p className="merch-all">
+            {isLink(site.merchStoreUrl) && (
               <a href={site.merchStoreUrl} target="_blank" rel="noopener noreferrer">See everything in the store</a>
-              {isLink(site.tipJarUrl) && (
-                <>
-                  {" · "}
-                  <a href={site.tipJarUrl} target="_blank" rel="noopener noreferrer">Tip jar</a>
-                </>
-              )}
-            </p>
-          )}
+            )}
+            {isLink(site.merchStoreUrl) && isLink(site.tipJarUrl) && " · "}
+            {isLink(site.tipJarUrl) && (
+              <a href={site.tipJarUrl} target="_blank" rel="noopener noreferrer">Tip jar</a>
+            )}
+          </p>
         </section>
 
         {site.tools && site.tools.some((t) => isLink(t.url)) && (
